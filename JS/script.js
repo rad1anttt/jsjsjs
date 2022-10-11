@@ -6,28 +6,6 @@ for (var i = 0; i < 5; i++) {
 }
 */
 
-//1
-/*
-$("h1").text("Мои друзья");
-var friends = ["Kirill", "David", "Danil"]
-for (var i = 0; i < 3; i++) {
- $("body").append("<p>" + friends[i] + "</p>");
- $("p").last().hide().fadeIn((i+1) *1000);
-}
-$("p").append(" лучший!");
-*/
-
-//2
-/*
-for (var i = 0; i < 5; i++){
-    $("h1").fadeOut(1000).fadeIn(1000);
-    $("h1").fadeOut(2000).fadeIn(2000);
-    $("h1").fadeOut(3000).fadeIn(3000);
-    $("h1").fadeOut(4000).fadeIn(4000);
-    $("h1").fadeOut(5000).fadeIn(5000);
-}
-*/
-
 //155(4)
 /*
 $("h1").fadeTo(2000, 0.1);
@@ -60,7 +38,7 @@ $("h1").click(clickHandler);
 
 //163(1)
 /*
-$("html").mousemove(function(event) {
+$("html").click(function(event) {
     $("h1").offset({
         left: event.pageX,
         top: event.pageY
@@ -68,4 +46,60 @@ $("html").mousemove(function(event) {
 });
 */
 
-//165(4)
+//165
+/*
+var direction = 'вправо';
+var offset = 0;
+var clicks = 0;
+var intervalLength = 120;
+
+$("h1").offset({left:offset, top:offset});
+
+var moveHeading = function(){
+    if (direction === 'вправо') {
+        $("h1").offset({left:offset});
+        offset++;
+        if(offset > 200) {
+            offset = 0;
+            direction = 'вниз';
+        }
+    } else if (direction === 'вниз') {
+        $("h1").offset({top: offset});
+        offset++;
+        if (offset > 200) {
+            offset = 200;
+            direction = 'влево';
+        }
+    } else if(direction === 'влево') {
+        $("h1").offset({left:offset});
+        offset--;
+        if(offset < 0) {
+            offset = 200;
+            direction = 'вверх';
+        }
+    } else if (direction === 'вверх') {
+        $("h1").offset({top:offset});
+        offset--;
+        if (offset < 0) {
+            offset = 0;
+            direction = 'вправо';
+        }
+    }
+};
+
+var intervalId = setInterval(moveHeading, intervalLength);
+
+$("h1").click(function() {
+    clearInterval(intervalId);
+    intervalLength /= 2;
+    clicks++;
+
+    if (clicks > 10) {
+        $("h1").text("Вы победили");
+    } else {
+        intervalId = setInterval(moveHeading, intervalLength)
+    }
+});
+
+setInterval(moveHeading, 30);
+*/
